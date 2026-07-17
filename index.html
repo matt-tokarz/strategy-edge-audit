@@ -27,7 +27,9 @@ a{color:var(--accent-ink)}
 .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
 nav{display:flex;align-items:center;justify-content:space-between;
   padding:18px 0;border-bottom:1px solid var(--line)}
-nav .brand{font-weight:700;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+nav .brand{font-weight:700;letter-spacing:-.01em;text-decoration:none;color:var(--ink);
+  display:flex;align-items:center;gap:9px}
+nav .brand svg{display:block;border-radius:6px}
 nav .links a{margin-left:22px;text-decoration:none;color:var(--ink-2);font-size:.95rem}
 nav .links a:hover{color:var(--ink)}
 
@@ -134,7 +136,7 @@ footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
 
 <div class="wrap">
 <nav>
-  <a class="brand" href="#">Strategy&nbsp;Edge&nbsp;Audit</a>
+  <a class="brand" href="#"><svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0d6e5f"/><path d="M18 34l10 10 18-22" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Strategy&nbsp;Edge&nbsp;Audit</a>
   <div class="links">
     <a href="#how">How it works</a>
     <a href="https://github.com/matt-tokarz/strategy-edge-audit/blob/main/sample-audit-report.md">Sample report</a>

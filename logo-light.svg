@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 96" width="520" height="96" role="img" aria-label="Strategy Edge Audit">
+  <g transform="translate(8,16)">
+    <rect width="64" height="64" rx="14" fill="#0d6e5f"/>
+    <path d="M18 34l10 10 18-22" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="94" y="62" font-family="'Segoe UI',-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="40" font-weight="700" letter-spacing="-0.5" fill="#15181e">Strategy Edge Audit</text>
+</svg>

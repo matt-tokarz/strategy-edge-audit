@@ -1,6 +1,9 @@
 <div align="center">
 
-# Strategy Edge Audit
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="logo-dark.svg">
+  <img src="logo-light.svg" alt="Strategy Edge Audit" width="400">
+</picture>
 
 **Is your edge real — or just well-searched?**
 
