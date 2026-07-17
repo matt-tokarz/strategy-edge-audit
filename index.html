@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Strategy Edge Audit — adversarial validation of trading track records</title>
 <meta name="description" content="Is your edge real — or just well-searched? An adversarial gate built for our own capital: 5,947 models tested, one edge certified. Deflated Sharpe, cost stress, selection-bias screens. REAL / FRAGILE / THIN / OVERFIT.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d6e5f'/%3E%3Cpath d='M18 34l10 10 18-22' stroke='white' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d6e5f'/%3E%3Cpath d='M13 44 24 33 31 39 51 19' stroke='white' stroke-width='6.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='51' cy='19' r='4.5' fill='%237ef0cd'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Is your edge real — or just well-searched?">
 <meta property="og:description" content="Strategy Edge Audit — adversarial validation of trading track records. 5,947 models tested, one edge certified. Verdict: REAL / FRAGILE / THIN / OVERFIT.">
@@ -13,154 +13,269 @@
 <meta property="og:image" content="https://matt-tokarz.github.io/strategy-edge-audit/banner.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://matt-tokarz.github.io/strategy-edge-audit/banner.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#15181e; --ink-2:#4b5563; --paper:#fafaf8; --card:#ffffff;
-  --line:#e5e4df; --accent:#0d6e5f; --accent-ink:#0a5a4e;
-  --real:#16a34a; --fragile:#d97706; --thin:#ea580c; --overfit:#dc2626;
-  --mono:'SF Mono',ui-monospace,'Cascadia Code',Consolas,monospace;
+  --bg:#0a0d10; --panel:#0e1216; --panel-2:#11161c;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.16);
+  --ink:#ece9e2; --muted:#969ea9; --faint:#6b7480;
+  --teal:#0d6e5f; --teal-2:#12876f; --mint:#3ecfa4; --mint-dim:rgba(62,207,164,.55);
+  --real:#2fd575; --fragile:#f0a13a; --thin:#f4783b; --overfit:#ef5350;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font:16px/1.65 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  color:var(--ink);background:var(--paper)}
-a{color:var(--accent-ink)}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-nav{display:flex;align-items:center;justify-content:space-between;
-  padding:18px 0;border-bottom:1px solid var(--line)}
-nav .brand{font-weight:700;letter-spacing:-.01em;text-decoration:none;color:var(--ink);
-  display:flex;align-items:center;gap:9px}
-nav .brand svg{display:block;border-radius:6px}
-nav .links a{margin-left:22px;text-decoration:none;color:var(--ink-2);font-size:.95rem}
+html{scroll-behavior:smooth}
+body{font:16px/1.7 var(--sans);background:var(--bg);color:var(--ink);
+  -webkit-font-smoothing:antialiased}
+::selection{background:rgba(62,207,164,.25)}
+a{color:var(--mint);text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:rgba(10,13,16,.78);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+nav .brand{display:flex;align-items:center;gap:11px;color:var(--ink);
+  font-weight:600;letter-spacing:-.01em;font-size:.98rem}
+nav .brand svg{display:block}
+nav .links{display:flex;align-items:center;gap:30px}
+nav .links a{color:var(--muted);font-size:.88rem;font-weight:500;
+  transition:color .2s}
 nav .links a:hover{color:var(--ink)}
+nav .links a.cta{color:var(--ink);border:1px solid var(--line-2);
+  padding:8px 18px;border-radius:10px;transition:border-color .2s,background .2s}
+nav .links a.cta:hover{border-color:var(--mint-dim);background:rgba(62,207,164,.06)}
 
-/* hero */
-header{background:#101418;color:#eef0f2;padding:84px 0 72px}
-header h1{font-size:clamp(1.9rem,4.6vw,3.1rem);line-height:1.14;
-  letter-spacing:-.02em;max-width:17ch}
-header .sub{margin-top:22px;max-width:58ch;color:#b7bec7;font-size:1.12rem}
-header .sub b{color:#eef0f2}
-.scale{margin-top:34px;display:inline-flex;flex-wrap:wrap;gap:10px;
-  font-family:var(--mono);font-size:.88rem}
-.scale span{border:1px solid #2c333b;border-radius:8px;padding:7px 14px;color:#8b93a0}
-.scale .real{color:var(--real);border-color:var(--real)}
-.scale .fragile{color:var(--fragile)} .scale .thin{color:var(--thin)}
-.scale .overfit{color:var(--overfit)}
-.cta{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap}
-.btn{display:inline-block;padding:14px 26px;border-radius:10px;font-weight:600;
-  text-decoration:none;font-size:1rem;border:1px solid transparent;cursor:pointer}
-.btn.primary{background:var(--accent);color:#fff}
-.btn.primary:hover{background:var(--accent-ink)}
-.btn.ghost{border-color:#3a424c;color:#dfe3e8;background:transparent}
-.btn.ghost:hover{border-color:#dfe3e8}
-#banner{display:none;background:var(--real);color:#fff;padding:12px 0;
-  text-align:center;font-weight:600}
+/* ---------- hero ---------- */
+header{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+header .glow{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(52% 42% at 78% 6%,rgba(62,207,164,.10),transparent 70%),
+    radial-gradient(40% 34% at 12% 96%,rgba(13,110,95,.14),transparent 70%)}
+header .curve{position:absolute;right:-4%;bottom:0;width:62%;height:78%;
+  pointer-events:none;opacity:.9}
+header .wrap{position:relative;padding:112px 28px 96px}
+.eyebrow{font:600 .69rem/1 var(--sans);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--mint);margin-bottom:26px}
+h1{font:600 clamp(2.7rem,5.6vw,4.35rem)/1.04 var(--serif);
+  letter-spacing:-.015em;max-width:15ch}
+header .sub{margin-top:28px;max-width:60ch;color:var(--muted);
+  font-size:1.06rem;line-height:1.75}
+header .sub b{color:var(--ink);font-weight:600}
+.scale{margin-top:34px;display:flex;flex-wrap:wrap;gap:10px;
+  font:500 .8rem/1 var(--mono)}
+.scale span{border:1px solid var(--line);border-radius:9px;padding:9px 15px;
+  color:var(--faint);background:rgba(255,255,255,.015)}
+.scale .real{color:var(--real);border-color:rgba(47,213,117,.4)}
+.scale .fragile{color:var(--fragile);border-color:rgba(240,161,58,.35)}
+.scale .thin{color:var(--thin);border-color:rgba(244,120,59,.35)}
+.scale .overfit{color:var(--overfit);border-color:rgba(239,83,80,.35)}
+.cta-row{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;padding:15px 30px;border-radius:12px;font-weight:600;
+  font-size:.97rem;cursor:pointer;transition:transform .18s,box-shadow .18s,
+  border-color .18s,background .18s}
+.btn.primary{color:#fff;background:linear-gradient(180deg,var(--teal-2),var(--teal));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 10px 32px rgba(13,110,95,.35),inset 0 1px 0 rgba(255,255,255,.12)}
+.btn.primary:hover{transform:translateY(-1px);
+  box-shadow:0 14px 40px rgba(13,110,95,.5),inset 0 1px 0 rgba(255,255,255,.12)}
+.btn.ghost{color:var(--ink);border:1px solid var(--line-2);background:transparent}
+.btn.ghost:hover{border-color:var(--mint-dim);background:rgba(62,207,164,.05)}
+#banner{display:none;background:var(--teal);color:#fff;padding:13px 0;
+  text-align:center;font-weight:600;font-size:.92rem}
 
-/* stats strip */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:1px;background:var(--line);border-block:1px solid var(--line)}
-.stats div{background:var(--card);padding:30px 24px;text-align:center}
-.stats .n{font-family:var(--mono);font-size:2.1rem;font-weight:700;
-  letter-spacing:-.02em}
-.stats .l{color:var(--ink-2);font-size:.92rem;margin-top:6px}
+/* ---------- stats ---------- */
+.stats{border-bottom:1px solid var(--line)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding:0 28px}
+.stats div.cell{padding:44px 26px;border-left:1px solid var(--line)}
+.stats div.cell:first-child{border-left:none}
+.stats .n{font:500 2.5rem/1.1 var(--mono);letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums}
+.stats .n em{font-style:normal;color:var(--mint)}
+.stats .l{margin-top:10px;color:var(--faint);font-size:.8rem;
+  letter-spacing:.04em}
 
-section{padding:72px 0}
-section.alt{background:var(--card);border-block:1px solid var(--line)}
-h2{font-size:1.65rem;letter-spacing:-.015em;margin-bottom:14px}
-.lede{color:var(--ink-2);max-width:64ch;margin-bottom:36px}
+/* ---------- sections ---------- */
+section{padding:104px 0;border-bottom:1px solid var(--line)}
+section.tint{background:linear-gradient(180deg,var(--panel) 0%,var(--bg) 100%)}
+.sec-head{max-width:660px;margin-bottom:56px}
+h2{font:600 clamp(1.7rem,3vw,2.3rem)/1.15 var(--serif);letter-spacing:-.01em}
+.lede{margin-top:16px;color:var(--muted);line-height:1.75}
 
 /* steps */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
-.step{background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:26px}
-section.alt .step{background:var(--paper)}
-.step .k{font-family:var(--mono);color:var(--accent);font-weight:700}
-.step h3{margin:10px 0 8px;font-size:1.08rem}
-.step p{color:var(--ink-2);font-size:.95rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);border-radius:18px;padding:34px 30px;
+  transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.card .k{font:500 .78rem/1 var(--mono);color:var(--mint);letter-spacing:.12em}
+.card h3{margin:16px 0 10px;font:600 1.08rem/1.3 var(--sans)}
+.card p{color:var(--muted);font-size:.93rem;line-height:1.7}
 
 /* deliverables */
-ol.deliver{counter-reset:d;list-style:none;max-width:760px}
-ol.deliver li{counter-increment:d;padding:16px 0 16px 58px;position:relative;
+ol.deliver{counter-reset:d;list-style:none;max-width:800px}
+ol.deliver li{counter-increment:d;padding:26px 0 26px 76px;position:relative;
   border-bottom:1px solid var(--line)}
+ol.deliver li:last-child{border-bottom:none}
 ol.deliver li::before{content:counter(d,decimal-leading-zero);
-  position:absolute;left:0;top:16px;font-family:var(--mono);
-  color:var(--accent);font-weight:700;font-size:1.05rem}
-ol.deliver b{display:block;margin-bottom:2px}
-ol.deliver span{color:var(--ink-2);font-size:.95rem}
+  position:absolute;left:0;top:24px;font:500 1rem/1 var(--mono);
+  color:var(--mint)}
+ol.deliver b{display:block;margin-bottom:5px;font-weight:600;font-size:1.02rem}
+ol.deliver span{color:var(--muted);font-size:.94rem;line-height:1.7}
 
 /* verdicts */
-.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
-.vcard{border-radius:14px;padding:24px;border:1px solid var(--line);
-  background:var(--card);border-top:4px solid var(--line)}
-.vcard h3{font-family:var(--mono);font-size:1.05rem;margin-bottom:8px}
-.vcard p{color:var(--ink-2);font-size:.93rem}
-.vcard.real{border-top-color:var(--real)} .vcard.real h3{color:var(--real)}
-.vcard.fragile{border-top-color:var(--fragile)} .vcard.fragile h3{color:var(--fragile)}
-.vcard.thin{border-top-color:var(--thin)} .vcard.thin h3{color:var(--thin)}
-.vcard.overfit{border-top-color:var(--overfit)} .vcard.overfit h3{color:var(--overfit)}
+.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.vcard{border-radius:18px;padding:30px 28px;border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  position:relative;overflow:hidden;transition:transform .25s}
+.vcard:hover{transform:translateY(-3px)}
+.vcard::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.vcard h3{font:500 1rem/1 var(--mono);margin-bottom:14px;letter-spacing:.06em}
+.vcard p{color:var(--muted);font-size:.9rem;line-height:1.7}
+.vcard.real::before{background:linear-gradient(90deg,var(--real),transparent)}
+.vcard.real h3{color:var(--real)}
+.vcard.fragile::before{background:linear-gradient(90deg,var(--fragile),transparent)}
+.vcard.fragile h3{color:var(--fragile)}
+.vcard.thin::before{background:linear-gradient(90deg,var(--thin),transparent)}
+.vcard.thin h3{color:var(--thin)}
+.vcard.overfit::before{background:linear-gradient(90deg,var(--overfit),transparent)}
+.vcard.overfit h3{color:var(--overfit)}
+.after-verdicts{margin-top:44px;color:var(--muted)}
+.after-verdicts a{border-bottom:1px solid rgba(62,207,164,.35);padding-bottom:1px}
 
 /* pricing */
-.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-.price{background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:30px 26px;display:flex;flex-direction:column}
-.price.hl{border-color:var(--accent);box-shadow:0 6px 24px rgba(13,110,95,.10)}
-.price h3{font-size:1.02rem}
-.price .amt{font-family:var(--mono);font-size:2.2rem;font-weight:700;
-  margin:12px 0 4px;letter-spacing:-.02em}
-.price .per{color:var(--ink-2);font-size:.9rem;margin-bottom:16px}
-.price ul{list-style:none;margin-bottom:24px;flex:1}
-.price li{padding:6px 0 6px 24px;position:relative;color:var(--ink-2);font-size:.94rem}
-.price li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
-.price .btn{text-align:center;background:var(--ink);color:#fff}
-.price .btn:hover{background:#000}
-.price.hl .btn{background:var(--accent)} .price.hl .btn:hover{background:var(--accent-ink)}
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.price{background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);border-radius:18px;padding:38px 32px;
+  display:flex;flex-direction:column;position:relative;transition:transform .25s}
+.price:hover{transform:translateY(-3px)}
+.price.hl{border-color:rgba(62,207,164,.45);
+  box-shadow:0 24px 64px rgba(13,110,95,.18)}
+.price .tag{position:absolute;top:22px;right:24px;font:500 .62rem/1 var(--mono);
+  letter-spacing:.16em;color:var(--mint);border:1px solid rgba(62,207,164,.4);
+  padding:6px 10px;border-radius:7px}
+.price h3{font-size:.92rem;font-weight:600;color:var(--muted);
+  letter-spacing:.02em}
+.price .amt{font:500 3rem/1 var(--mono);letter-spacing:-.04em;margin:18px 0 6px;
+  font-variant-numeric:tabular-nums}
+.price .per{color:var(--faint);font-size:.85rem;margin-bottom:26px}
+.price ul{list-style:none;margin-bottom:34px;flex:1}
+.price li{padding:8px 0 8px 26px;position:relative;color:var(--muted);
+  font-size:.92rem}
+.price li::before{content:"";position:absolute;left:2px;top:15px;width:6px;
+  height:6px;border-radius:50%;background:var(--mint)}
+.price .btn{text-align:center;color:var(--ink);border:1px solid var(--line-2);
+  background:transparent}
+.price .btn:hover{border-color:var(--mint-dim);background:rgba(62,207,164,.05)}
+.price.hl .btn{color:#fff;background:linear-gradient(180deg,var(--teal-2),var(--teal));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 10px 32px rgba(13,110,95,.35)}
+.price.hl .btn:hover{transform:translateY(-1px)}
 
-/* trust + faq */
-.not ul{list-style:none;max-width:720px}
-.not li{padding:8px 0 8px 26px;position:relative;color:var(--ink-2)}
-.not li::before{content:"—";position:absolute;left:0;color:var(--overfit)}
-details{border-bottom:1px solid var(--line);max-width:760px}
-details summary{padding:16px 0;font-weight:600;cursor:pointer;list-style:none}
-details summary::after{content:"+";float:right;font-family:var(--mono);color:var(--ink-2)}
-details[open] summary::after{content:"–"}
-details p{padding:0 0 18px;color:var(--ink-2);max-width:66ch}
+/* not / faq */
+.not ul{list-style:none;max-width:780px}
+.not li{padding:16px 0 16px 34px;position:relative;color:var(--muted);
+  border-bottom:1px solid var(--line);line-height:1.7}
+.not li:last-child{border-bottom:none}
+.not li::before{content:"—";position:absolute;left:0;top:14px;color:var(--overfit)}
+details{border-bottom:1px solid var(--line);max-width:800px}
+details summary{padding:24px 0;font-weight:600;cursor:pointer;list-style:none;
+  font-size:1rem;display:flex;justify-content:space-between;align-items:center;
+  transition:color .2s}
+details summary:hover{color:var(--mint)}
+details summary::after{content:"+";font:400 1.2rem/1 var(--mono);
+  color:var(--faint);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 26px;color:var(--muted);max-width:64ch;line-height:1.75}
 
-footer{background:#101418;color:#8b93a0;padding:44px 0;font-size:.92rem}
-footer a{color:#c6ccd4}
-footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
-@media (max-width:640px){nav .links a:not(:last-child){display:none}}
+/* footer */
+footer{padding:64px 0 48px;color:var(--faint);font-size:.88rem}
+footer .top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  align-items:flex-start;padding-bottom:36px;border-bottom:1px solid var(--line)}
+footer .brandline{display:flex;align-items:center;gap:11px;color:var(--ink);
+  font-weight:600}
+footer .cols{text-align:right;line-height:2}
+footer .cols a{color:var(--muted)} footer .cols a:hover{color:var(--ink)}
+footer .fine{padding-top:26px;display:flex;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;font-size:.78rem}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(18px);
+  transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .card,.vcard,.price,.btn{transition:none}
+}
+@media (max-width:900px){
+  .stats .wrap{grid-template-columns:repeat(2,1fr)}
+  .stats div.cell:nth-child(3){border-left:none}
+  .stats div.cell{border-top:1px solid var(--line)}
+  .stats div.cell:nth-child(-n+2){border-top:none}
+}
+@media (max-width:640px){
+  nav .links a:not(.cta){display:none}
+  header .wrap{padding:80px 28px 72px}
+  section{padding:76px 0}
+  header .curve{opacity:.45}
+}
 </style>
 </head>
 <body>
 
 <div id="banner">Payment received — check your inbox for the data-upload link. Thank you.</div>
 
-<div class="wrap">
 <nav>
-  <a class="brand" href="#"><svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0d6e5f"/><path d="M18 34l10 10 18-22" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Strategy&nbsp;Edge&nbsp;Audit</a>
-  <div class="links">
-    <a href="#how">How it works</a>
-    <a href="https://github.com/matt-tokarz/strategy-edge-audit/blob/main/sample-audit-report.md">Sample report</a>
-    <a href="https://github.com/matt-tokarz/strategy-edge-audit">Whitepaper</a>
-    <a href="#pricing">Pricing</a>
+  <div class="wrap">
+    <a class="brand" href="#">
+      <svg width="27" height="27" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0d6e5f"/><path d="M13 44 24 33 31 39 51 19" stroke="#fff" stroke-width="6.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="51" cy="19" r="4.5" fill="#7ef0cd"/></svg>
+      Strategy Edge Audit
+    </a>
+    <div class="links">
+      <a href="#how">Process</a>
+      <a href="https://github.com/matt-tokarz/strategy-edge-audit/blob/main/sample-audit-report.md">Sample report</a>
+      <a href="https://github.com/matt-tokarz/strategy-edge-audit">Whitepaper</a>
+      <a href="#pricing">Pricing</a>
+      <a class="cta" href="mailto:strategyedge@proton.me?subject=Edge%20Audit%20—%2015-min%20scoping%20call">Book a call</a>
+    </div>
   </div>
 </nav>
-</div>
 
 <header>
+  <div class="glow"></div>
+  <svg class="curve" viewBox="0 0 720 420" fill="none" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+    <defs>
+      <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3ecfa4" stop-opacity=".14"/>
+        <stop offset="1" stop-color="#3ecfa4" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="M0 330 L90 300 L150 318 L230 262 L300 292 L380 216 L440 238 L520 150 L590 172 L720 46"
+          stroke="#3ecfa4" stroke-opacity=".38" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M0 330 L90 300 L150 318 L230 262 L300 292 L380 216 L440 238 L520 150 L590 172 L720 46 L720 420 L0 420 Z"
+          fill="url(#area)"/>
+    <circle cx="720" cy="46" r="5" fill="#7ef0cd"/>
+  </svg>
   <div class="wrap">
-    <h1>Is your edge real — or&nbsp;just well-searched?</h1>
-    <p class="sub">The more configurations you test, the more your best
+    <div class="eyebrow reveal">Independent · Adversarial · Fixed-scope</div>
+    <h1 class="reveal">Is your edge real — or&nbsp;just well-searched?</h1>
+    <p class="sub reveal">The more configurations you test, the more your best
     backtest measures your search effort instead of the market. We built an
     adversarial validation gate for our own capital — it tested 5,947 models
     and certified <b>one edge</b>, positive in every year of a five-year
     window. Now we run it on <b>external track records</b>: you send a trade
     series — no strategy logic, no code, no IP — and get a verdict backed by
     Deflated Sharpe, five-tier cost stress and selection-bias screens.</p>
-    <div class="scale" aria-label="verdict scale">
+    <div class="scale reveal" aria-label="verdict scale">
       <span class="real">REAL</span><span class="fragile">FRAGILE</span>
       <span class="thin">THIN</span><span class="overfit">OVERFIT</span>
     </div>
-    <div class="cta">
+    <div class="cta-row reveal">
       <a class="btn primary" href="mailto:strategyedge@proton.me?subject=Edge%20Audit%20—%2015-min%20scoping%20call">Book a 15-min scoping call</a>
       <a class="btn ghost" href="#pricing">Order an audit — $900</a>
     </div>
@@ -168,30 +283,36 @@ footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
 </header>
 
 <div class="stats">
-  <div><div class="n">5,947</div><div class="l">models trained &amp; evaluated</div></div>
-  <div><div class="n">~192</div><div class="l">pre-registered experiments</div></div>
-  <div><div class="n">1</div><div class="l">edge certified — positive every year, 5y</div></div>
-  <div><div class="n">0.95</div><div class="l">Deflated Sharpe certification bar</div></div>
+  <div class="wrap">
+    <div class="cell reveal"><div class="n">5,947</div><div class="l">models trained &amp; evaluated</div></div>
+    <div class="cell reveal"><div class="n">~192</div><div class="l">pre-registered experiments</div></div>
+    <div class="cell reveal"><div class="n"><em>1</em></div><div class="l">edge certified — positive every year, 5y</div></div>
+    <div class="cell reveal"><div class="n">0.95</div><div class="l">Deflated Sharpe certification bar</div></div>
+  </div>
 </div>
 
 <section id="how">
   <div class="wrap">
-    <h2>How it works</h2>
-    <p class="lede">Every pitch that reaches an allocator has already survived
-    the sender's selection process — so its backtest is, by construction, an
-    upper bound. The only defensible response is adversarial validation.</p>
+    <div class="sec-head reveal">
+      <div class="eyebrow">Process</div>
+      <h2>How it works</h2>
+      <p class="lede">Every pitch that reaches an allocator has already
+      survived the sender's selection process — so its backtest is, by
+      construction, an upper bound. The only defensible response is
+      adversarial validation.</p>
+    </div>
     <div class="steps">
-      <div class="step"><div class="k">01</div>
+      <div class="card reveal"><div class="k">01</div>
         <h3>Send the trade series</h3>
         <p>Per-trade CSV (timestamps, side, size, fills, fees) or a daily
         returns series (reduced scope). Your logic and code never leave the
         building. Optional NDA at scoping.</p></div>
-      <div class="step"><div class="k">02</div>
+      <div class="card reveal"><div class="k">02</div>
         <h3>The harness runs</h3>
         <p>Deflated Sharpe at your declared trial count <i>and</i> at
         adversarial counts, five-tier cost stress, chronological
         derivation/validation split, regime folds, selection-bias screens.</p></div>
-      <div class="step"><div class="k">03</div>
+      <div class="card reveal"><div class="k">03</div>
         <h3>Verdict in 5 business days</h3>
         <p>A fixed-scope report — REAL / FRAGILE / THIN / OVERFIT — with the
         evidence math shown, plus a 30-min walkthrough call.</p></div>
@@ -199,21 +320,24 @@ footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
   </div>
 </section>
 
-<section class="alt">
+<section class="tint">
   <div class="wrap">
-    <h2>What the report contains</h2>
+    <div class="sec-head reveal">
+      <div class="eyebrow">Deliverables</div>
+      <h2>What the report contains</h2>
+    </div>
     <ol class="deliver">
-      <li><b>Deflated Sharpe Ratio</b><span>at your declared trial count and at
+      <li class="reveal"><b>Deflated Sharpe Ratio</b><span>at your declared trial count and at
         stress-tested counts — the single strongest test against
         multiple-testing bias.</span></li>
-      <li><b>Five-tier cost stress</b><span>10+2 → 30+10 bps per leg: the exact
+      <li class="reveal"><b>Five-tier cost stress</b><span>10+2 → 30+10 bps per leg: the exact
         fee/slippage level at which the edge dies.</span></li>
-      <li><b>Walk-forward &amp; regime stability</b><span>does the edge live in
+      <li class="reveal"><b>Walk-forward &amp; regime stability</b><span>does the edge live in
         one period or all of them?</span></li>
-      <li><b>Selection-bias screens</b><span>in-sample threshold picks,
+      <li class="reveal"><b>Selection-bias screens</b><span>in-sample threshold picks,
         calendar-window restrictions, thin-tail concentration,
         derivation-vs-holdout deltas.</span></li>
-      <li><b>Classification + upgrade path</b><span>the verdict, and the minimum
+      <li class="reveal"><b>Classification + upgrade path</b><span>the verdict, and the minimum
         additional evidence that would upgrade it.</span></li>
     </ol>
   </div>
@@ -221,38 +345,45 @@ footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
 
 <section>
   <div class="wrap">
-    <h2>The verdict scale</h2>
-    <p class="lede">Mechanical rules, published in the report. We sell the
-    verdict, not flattery — the sample below is an audit of our <i>own</i>
-    strategy, and it did not pass.</p>
+    <div class="sec-head reveal">
+      <div class="eyebrow">Classification</div>
+      <h2>The verdict scale</h2>
+      <p class="lede">Mechanical rules, published in the report. We sell the
+      verdict, not flattery — the sample below is an audit of our <i>own</i>
+      strategy, and it did not pass.</p>
+    </div>
     <div class="verdicts">
-      <div class="vcard real"><h3>REAL</h3><p>Survives Deflated Sharpe at
+      <div class="vcard real reveal"><h3>REAL</h3><p>Survives Deflated Sharpe at
         adversarial trial counts, deep cost tiers, an honest holdout and every
         screen — on an evidence base of ≥100 trades.</p></div>
-      <div class="vcard fragile"><h3>FRAGILE</h3><p>Certifies at the declared
+      <div class="vcard fragile reveal"><h3>FRAGILE</h3><p>Certifies at the declared
         trial count, but dies under adversarial trial assumptions or deeper
         cost tiers.</p></div>
-      <div class="vcard thin"><h3>THIN</h3><p>Positive — possibly genuinely so —
+      <div class="vcard thin reveal"><h3>THIN</h3><p>Positive — possibly genuinely so —
         but the evidence base cannot support certification. "Probably real but
         unprovable" is THIN, not REAL.</p></div>
-      <div class="vcard overfit"><h3>OVERFIT</h3><p>The record contradicts
+      <div class="vcard overfit reveal"><h3>OVERFIT</h3><p>The record contradicts
         itself: the holdout slice fails, or critical selection screens fire.
         The backtest measured the search, not the market.</p></div>
     </div>
-    <p style="margin-top:30px"><a href="https://github.com/matt-tokarz/strategy-edge-audit/blob/main/sample-audit-report.md"><b>Read the
+    <p class="after-verdicts reveal"><a href="https://github.com/matt-tokarz/strategy-edge-audit/blob/main/sample-audit-report.md"><b>Read the
     sample report</b></a> — an audit of our own pooled-crypto ML strategy
     (verdict: THIN) · <a href="https://github.com/matt-tokarz/strategy-edge-audit">read the full case study</a>.</p>
   </div>
 </section>
 
-<section class="alt" id="pricing">
+<section class="tint" id="pricing">
   <div class="wrap">
-    <h2>Pricing</h2>
-    <p class="lede">Fixed scope, fixed fee, introductory pricing. Process:
-    free 15-min scoping call → you deliver the trade series → report in 5
-    business days + walkthrough call.</p>
+    <div class="sec-head reveal">
+      <div class="eyebrow">Engagement</div>
+      <h2>Pricing</h2>
+      <p class="lede">Fixed scope, fixed fee, introductory pricing. Process:
+      free 15-min scoping call → you deliver the trade series → report in 5
+      business days + walkthrough call.</p>
+    </div>
     <div class="prices">
-      <div class="price hl">
+      <div class="price hl reveal">
+        <div class="tag">STANDARD</div>
         <h3>Single strategy audit</h3>
         <div class="amt">$900</div>
         <div class="per">per strategy</div>
@@ -261,7 +392,7 @@ footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
             <li>Upgrade-path guidance</li></ul>
         <a class="btn" href="#" onclick="return order('single')">Order audit</a>
       </div>
-      <div class="price">
+      <div class="price reveal">
         <h3>Allocator batch</h3>
         <div class="amt">$600</div>
         <div class="per">per strategy, 5+ strategies</div>
@@ -270,7 +401,7 @@ footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
             <li>Priority scheduling</li></ul>
         <a class="btn" href="#" onclick="return order('batch')">Order batch</a>
       </div>
-      <div class="price">
+      <div class="price reveal">
         <h3>Authenticity verification</h3>
         <div class="amt">+$300</div>
         <div class="per">add-on to any audit</div>
@@ -284,55 +415,74 @@ footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
 
 <section class="not">
   <div class="wrap">
-    <h2>What we do <span style="color:var(--overfit)">not</span> do</h2>
+    <div class="sec-head reveal">
+      <div class="eyebrow">Scope discipline</div>
+      <h2>What we do <span style="color:var(--overfit)">not</span> do</h2>
+    </div>
     <ul>
-      <li>No investment advice, no signals, no strategy-improvement consulting.</li>
-      <li>No performance guarantee. A REAL verdict means "inconsistent with
+      <li class="reveal">No investment advice, no signals, no strategy-improvement consulting.</li>
+      <li class="reveal">No performance guarantee. A REAL verdict means "inconsistent with
         selection bias and cost blindness at the stated confidence" — not
         "this will make money".</li>
-      <li>No code review — we audit the statistical record as provided.
+      <li class="reveal">No code review — we audit the statistical record as provided.
         Fabricated inputs are out of scope except in the verification tier.</li>
     </ul>
   </div>
 </section>
 
-<section class="alt">
+<section class="tint">
   <div class="wrap">
-    <h2>Questions</h2>
-    <details><summary>Do you see my strategy logic?</summary>
+    <div class="sec-head reveal">
+      <div class="eyebrow">FAQ</div>
+      <h2>Questions</h2>
+    </div>
+    <details class="reveal"><summary>Do you see my strategy logic?</summary>
       <p>No. The submission is a trade series only: timestamps, symbol, side,
       size, fill prices, fees. That is sufficient for every test we run and
       insufficient to reverse-engineer a signal.</p></details>
-    <details><summary>What data format do you accept?</summary>
+    <details class="reveal"><summary>What data format do you accept?</summary>
       <p>CSV. Full scope: per-trade records (entry_ts, exit_ts, symbol, side,
       entry_price, exit_price, optional qty and fee_pct). Reduced scope: a
       daily returns series (date, ret) — note that cost stress and trade-level
       screens require per-trade records, so returns-only audits are capped
       below REAL.</p></details>
-    <details><summary>Who is this for?</summary>
+    <details class="reveal"><summary>Who is this for?</summary>
       <p>Allocators and fund-of-funds screening external managers; emerging
       funds that want an independent validation exhibit for their DD pack;
       trading teams that want a pre-deployment gate for their own research.</p></details>
-    <details><summary>Why should I trust the harness?</summary>
+    <details class="reveal"><summary>Why should I trust the harness?</summary>
       <p>Because we pointed it at ourselves first. It evaluated 5,947 of our
       own models and certified none; it killed 191 of ~192 pre-registered
       hypotheses — including the ones we most wanted to believe. The one
       strategy it certified has been positive in every calendar year of a
       five-year window. The full story, numbers included, is in the
       <a href="https://github.com/matt-tokarz/strategy-edge-audit">whitepaper</a>.</p></details>
-    <details><summary>Is my data confidential?</summary>
+    <details class="reveal"><summary>Is my data confidential?</summary>
       <p>Yes — used solely for the audit, never shared, deleted on request
       after delivery. An NDA is available at the scoping stage.</p></details>
   </div>
 </section>
 
 <footer>
-  <div class="wrap row">
-    <div><b style="color:#eef0f2">Strategy Edge Audit</b><br>
-      adversarial validation of trading track records</div>
-    <div style="text-align:right">
-      <a href="mailto:strategyedge@proton.me">strategyedge@proton.me</a><br>
-      <a href="https://github.com/matt-tokarz">github.com/matt-tokarz</a>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="brandline">
+          <svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0d6e5f"/><path d="M13 44 24 33 31 39 51 19" stroke="#fff" stroke-width="6.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="51" cy="19" r="4.5" fill="#7ef0cd"/></svg>
+          Strategy Edge Audit
+        </div>
+        <div style="margin-top:10px;max-width:34ch">Adversarial statistical
+        validation of trading track records.</div>
+      </div>
+      <div class="cols">
+        <a href="mailto:strategyedge@proton.me">strategyedge@proton.me</a><br>
+        <a href="https://github.com/matt-tokarz">github.com/matt-tokarz</a><br>
+        <a href="https://github.com/matt-tokarz/strategy-edge-audit/blob/main/sample-audit-report.md">Sample report</a>
+      </div>
+    </div>
+    <div class="fine">
+      <span>© 2026 Strategy Edge Audit · methodology harness-2026.07</span>
+      <span>Not investment advice. No performance guarantee.</span>
     </div>
   </div>
 </footer>
@@ -364,6 +514,19 @@ function order(tier){
 if(new URLSearchParams(location.search).get("paid") === "1"){
   document.getElementById("banner").style.display = "block";
 }
+/* scroll reveal */
+(function(){
+  var els = document.querySelectorAll(".reveal");
+  if(!("IntersectionObserver" in window)){
+    els.forEach(function(e){ e.classList.add("in"); }); return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  els.forEach(function(e){ io.observe(e); });
+})();
 </script>
 </body>
 </html>
